@@ -1,10 +1,12 @@
 "use client";
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import AOS from "aos";
 import "aos/dist/aos.css";
 
 export default function Home() {
+  const [menuOpen, setMenuOpen] = useState(false);
+
   useEffect(() => {
     AOS.init({ duration: 1000, once: true });
   }, []);
@@ -12,18 +14,41 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen bg-gradient-to-br from-zinc-50 to-zinc-200 dark:from-black dark:to-zinc-900 font-sans">
       {/* Header */}
-      <header className="fixed top-0 left-0 w-full px-10 py-4 flex justify-between items-center bg-black bg-opacity-70 backdrop-blur-md z-50" data-aos="fade-down">
-  <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
-    Felipe.dev 🚀
-  </h1>
-  <nav className="hidden md:flex space-x-8 text-lg font-semibold">
-    <a href="#projetos" className="hover:text-blue-400 transition">Projetos</a>
-    <a href="#habilidades" className="hover:text-blue-400 transition">Habilidades</a>
-    <a href="#sobre" className="hover:text-blue-400 transition">Sobre</a>
-    <a href="#contato" className="hover:text-blue-400 transition">Contato</a>
+      <header
+        className="fixed top-0 left-0 w-full px-10 py-4 flex justify-between items-center bg-black bg-opacity-70 backdrop-blur-md z-50"
+        data-aos="fade-down"
+      >
+        <h1 className="text-2xl font-bold text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-purple-500">
+          Felipe.dev 🚀
+        </h1>
+
+        {/* Menu Desktop */}
+        <nav className="hidden md:flex space-x-8 text-lg font-semibold">
+          <a href="#projetos" className="hover:text-blue-400 transition">Projetos</a>
+          <a href="#habilidades" className="hover:text-blue-400 transition">Habilidades</a>
+          <a href="#sobre" className="hover:text-blue-400 transition">Sobre</a>
+          <a href="#contato" className="hover:text-blue-400 transition">Contato</a>
+        </nav>
+
+        {/* Botão Mobile */}
+        <button
+          className="md:hidden text-white text-2xl"
+          onClick={() => setMenuOpen(!menuOpen)}
+        >
+          ☰
+        </button>
+      </header>
+
+      {/* Menu Mobile */}
+      {menuOpen && (
+  <nav className="fixed top-16 left-0 w-full bg-black bg-opacity-90 flex flex-col items-center space-y-6 py-6 md:hidden z-40">
+    <a href="#projetos" onClick={() => setMenuOpen(false)} className="text-white hover:text-blue-400 transition">Projetos</a>
+    <a href="#habilidades" onClick={() => setMenuOpen(false)} className="text-white hover:text-blue-400 transition">Habilidades</a>
+    <a href="#sobre" onClick={() => setMenuOpen(false)} className="text-white hover:text-blue-400 transition">Sobre</a>
+    <a href="#contato" onClick={() => setMenuOpen(false)} className="text-white hover:text-blue-400 transition">Contato</a>
   </nav>
-  <button className="md:hidden text-white text-2xl">☰</button>
-</header>
+)}
+
 
 
 
